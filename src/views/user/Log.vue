@@ -33,7 +33,7 @@
     </el-dialog>
     <!-- 日志列表 -->
     <el-card class="div-margin">
-      123
+      123456
     </el-card>
   </div>
 </template>
