@@ -5,8 +5,8 @@
       class="my-menu"
       router
       background-color="#eee"
-      text-color="#303133"
-      active-text-color="#ffffff"
+      text-color="##303133"
+      active-text-color="#0000ff"
       @select="select">
       <el-menu-item :index="$router.options.routes[2].children[0].path">
         <i class="el-icon-goods"></i>
