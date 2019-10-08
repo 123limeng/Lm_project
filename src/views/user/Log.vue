@@ -29,11 +29,43 @@
     </el-card>
     <!-- 添加日志弹窗 -->
     <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false">
-      <tinymce v-model="content"/>
+      <el-form label-width="100px">
+        <el-form-item label="标题">
+          <el-input/>
+        </el-form-item>
+        <el-form-item label="内容">
+          <tinymce v-model="content"/>
+        </el-form-item>
+        <el-form-item>
+          <div class="div-center">
+            <el-button>取消</el-button>
+            <el-button type="success">保存</el-button>
+          </div>
+        </el-form-item>
+      </el-form>
     </el-dialog>
     <!-- 日志列表 -->
     <el-card class="div-margin">
-      123456
+      <el-table
+        :data="logTable"
+        border>
+        <el-table-column type="index" label="序号" width="100px" align="center"/>
+        <el-table-column label="标题" align="center">
+          <template slot-scope="scope">
+            <span>{{ scope.row.title }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="内容" align="center">
+          <template slot-scope="scope">
+            <span>{{ scope.row.content }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="1000"
+        class="div-center"/>
     </el-card>
   </div>
 </template>
@@ -55,7 +87,49 @@ export default {
         page: 0,
         size: 10
       },
-      dialogVisible: false
+      dialogVisible: false,
+      logTable: [
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        },
+        {
+          title: '昨天',
+          content: '123'
+        }
+      ]
     }
   },
   methods: {
@@ -86,5 +160,9 @@ export default {
 }
 .div-margin {
   margin-top:20px;
+}
+.div-center {
+  width: 200px;
+  margin: 50px auto;
 }
 </style>

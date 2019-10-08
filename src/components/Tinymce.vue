@@ -16,7 +16,7 @@ export default {
   name: 'Tinymce',
   data () {
     return {
-      tinymceHtml: '请输入内容',
+      tinymceHtml: '',
       init: {
         language_url: '/static/tinymce/zh_CN.js',
         language: 'zh_CN',
