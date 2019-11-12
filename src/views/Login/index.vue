@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -46,7 +47,14 @@ export default {
     login () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$router.push('/home')
+          axios.post('/test/login', {
+            'username': this.form.phone,
+            'password': this.form.password
+          }).then(res => {
+            this.$router.push('/home')
+          }).catch(() => {
+            this.$message.error('登录失败')
+          })
         } else {
           this.$message.error('登录失败')
         }
