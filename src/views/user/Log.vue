@@ -9,16 +9,18 @@
         </el-col>
         <el-col :span="8">
           <label class="lable-style">创建时间</label>
-          <el-date-picker
-            v-model="datevalue"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            class="input-style"/>
+          <div class="input-style">
+            <el-date-picker
+              v-model="datevalue"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              value-format="yyyy-MM-dd HH:mm:ss"/>
+          </div>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
+          <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
         </el-col>
       </el-row>
       <el-row>
@@ -50,12 +52,12 @@
         :data="logTable"
         border>
         <el-table-column type="index" label="序号" width="100px" align="center"/>
-        <el-table-column label="标题" align="center">
+        <el-table-column label="标题" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.title }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="内容" align="center">
+        <el-table-column label="内容" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.content }}</span>
           </template>
@@ -71,6 +73,7 @@
 </template>
 <script>
 import Tinymce from '@/components/Tinymce'
+import axios from 'axios'
 export default {
   name: 'MyLog',
   components: {
@@ -88,53 +91,27 @@ export default {
         size: 10
       },
       dialogVisible: false,
-      logTable: [
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        },
-        {
-          title: '昨天',
-          content: '123'
-        }
-      ]
+      logTable: []
     }
+  },
+  created () {
+    this.getTable()
   },
   methods: {
     handleAddLog () {
       this.dialogVisible = true
+    },
+    search () {
+      this.getTable()
+    },
+    getTable () {
+      if (this.datevalue) {
+        this.list.createTime = this.datevalue[0]
+        this.list.endTime = this.datevalue[1]
+      }
+      axios.post('/test/test/searchLogs', this.list).then(res => {
+        this.logTable = res.data.data
+      }).catch(() => {})
     }
   }
 }
